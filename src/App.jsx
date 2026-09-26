@@ -1,23 +1,21 @@
-import React from 'react'
-import { useNameStore } from './store/useNameStore';
-import { useState } from "react";
+import { useTodoStore } from "../src/store/addTodo"
+import { useState } from "react"
 
-const App = () => {
+function App() {
 
-  const name = useNameStore((state) => state.name);
-  const SetName = useNameStore((state) => state.setName);
+  const [input, setInput] = useState('')
 
-  const [input, setInput] = useState('');
-
-  function handleChange(e) {
-    setInput(e.target.value);
-  }
+  const todo = useTodoStore((state) => state.todo)
+  const addTodo = useTodoStore((state) => state.addTodo)
 
   return <div>
-    <input type="text" placeholder="name" value={input} onChange={handleChange} />
-    <button onClick={() => SetName(input)}>Submit</button>
+    <input type="text" placeholder="Name" value={input} onChange={(e) => setInput(e.target.value)} />
+    <button onClick={() => addTodo(input)}>Add Task</button>
     <br />
-    <h1>Current Name: {name}</h1>
+    <h1>Task List:</h1>
+    {todo.map((task) => {
+      return <h2>{task}</h2>
+    })}
   </div>
 }
 
