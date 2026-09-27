@@ -1,20 +1,25 @@
-import { useTodoStore } from "../src/store/addTodo"
 import { useState } from "react"
+import { useMovieStore } from "./store/movieStore"
 
 function App() {
 
-  const [input, setInput] = useState('')
+  const [title, setTitle] = useState('');
+  const [rating, setRating] = useState(0);
 
-  const todo = useTodoStore((state) => state.todo)
-  const addTodo = useTodoStore((state) => state.addTodo)
+  const movies = useMovieStore((state) => state.movies);
+  const addMovieHandler = useMovieStore((state) => state.addMovie);
 
   return <div>
-    <input type="text" placeholder="Name" value={input} onChange={(e) => setInput(e.target.value)} />
-    <button onClick={() => addTodo(input)}>Add Task</button>
+    <input type="text" placeholder="Enter movie name" value={title} onChange={(e) => setTitle(e.target.value)} />
     <br />
-    <h1>Task List:</h1>
-    {todo.map((task) => {
-      return <h2>{task}</h2>
+    <input type="number" placeholder="Enter rating" value={rating} onChange={(e) => setRating(e.target.value)} />
+    <br />
+
+    <button onClick={() => addMovieHandler(title, rating)}>Add Movie</button>
+
+    <h1>List:</h1>
+    {movies.map((movie) => {
+      return <ul>Title:{movie.title} Rating:{movie.rating}</ul>
     })}
   </div>
 }
