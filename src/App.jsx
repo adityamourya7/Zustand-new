@@ -14,7 +14,7 @@ function App() {
     <br />
     <input type="number" placeholder="Enter rating" value={rating} onChange={(e) => setRating(e.target.value)} />
     <br />
-
+    {/* Just a comment */}
     <button onClick={() => addMovieHandler(title, rating)}>Add Movie</button>
 
     <h1>List:</h1>
